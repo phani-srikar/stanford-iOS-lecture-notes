@@ -26,14 +26,14 @@ Now that we have our controllers, we need a way to make them appear. This is nor
 
 * Show Segue - will push in a Navigation Controller, otherwise it will show a modal
 * Show Detail Segue - will show detail of a Split View Controller, else will push in a Navigation Controller
-* Modal Segue - will take over the entire screen while the MVC is up
-* Popover Segue - will make the MVC appear in a little popover window.
+* Modal Segue - will take over the entire screen while the MVC is up and pops all other MVCs out of the stack.
+* Popover Segue - will make the MVC appear in a little popover window while you cannot interact with other MVC in back.
 
 Segues always create a **new instance** of an MVC. You never reuse an old instance. (Note that the back button in a Navigation Controller is not a segue, so it does not create a new instance)
 
 The easiest way to introduce a segue is to  Ctrl+Drag from one View to another and then select the appropriate segue. You should then use the attributes view to give your segue a unique identifier, as this will let you reference it in code. Specifically, you can use it too:
 * Invoke a segue using the UIViewController method `func performSegue(withIndentifier: string, sender: Any?)`. However, this is quite rare, as we usually set this up using the interface builder
-* Preparing for a segue, normally by MVC to-be-segued-to's Model and display charecteristics. Remember that this is always a new MVC instance. The method that does this is `prepare(for segue: UIStoryboardSegue, sender: Any?)`, and we typically `switch` on `segue.identifier`.
+* Preparing for a segue, normally by MVC to-be-segued-to's Model and display charecteristics. Remember that this is always a new MVC instance. The method that does this is `prepare(for segue: UIStoryboardSegue, sender: Any?)`, and we typically `switch` on `segue.identifier` to choose behavior based on which MVC to prepare for Segue.
 
   It's very important to remember that preparation happens **BEFORE outlets get set**. This is a common bug.
   
