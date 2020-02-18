@@ -34,10 +34,11 @@ By default, both of these properties are set to 1.0, i.e. no zooming.
 
 You also **have to** implement a `delegate` method called `func viewForZooming(in scrollView: UIScrollView) -> UIView`. This method tells the scroll view which of its subviews to scroll. If you have multiple subviews, often what you would do is put all of them into a single view, and then do your zooming on that view.
 
-There are programmatic methods to zoom, including setting the `zoomScale` property and using the `zoom(to: CGRect)` method, which zooms until the target rect just barely fits into the view.
+There are programmatic methods to zoom, including setting the `zoomScale` property and using the `zoom(to: CGRect)` method, which zooms until the target rect just fits into the view.
 
  ## Delegate Methods
  
-ScrollView has a wide variety of delegate methods which you can use yo keep up to date with what's going on in the view. We won't go into great detail on them, but the documentation contains the necessary information.
+ScrollView has a wide variety of delegate methods like scrollViewDidEndZooming etc. which you can use yo keep up to date with what's going on in the view. We won't go into great detail on them, but the documentation contains the necessary information.
+When adding subviews to scrollView, the constraints we set to lay them out are with respect to the content size of scrollView.
 
 [Previous Note](../Lecture%209%20-%20View%20Controller%20Lifecycle%20and%20Scroll%20Views/Part%201%20-%20View%20Controller%20Lifecycle.md) | [Back To Contents](https://github.com/Firanus/stanford-iOS-lecture-notes) | [Next Lecture](/Lecture%2010%20-%20Multithreading%20and%20Autolayout/Part%200%20-%20Intro.md)
