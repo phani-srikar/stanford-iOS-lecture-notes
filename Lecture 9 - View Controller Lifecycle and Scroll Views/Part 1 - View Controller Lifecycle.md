@@ -155,4 +155,14 @@ override func awakeFromNib() {
 
 This is sent very early in the lifecycle, before outlets are set and before preperation for segues. It's probably best to avoid it where possible. And of course, remember that it is only called for views and ViewControllers that come from storyboards.
 
+The viewController lifecycle in Summary can be described as:
+* Instantiated (from storyboard usually)
+* awakeFromNib (only if instantiated from a storyboard)
+* segue preparation happens
+* outlets get set
+* viewDidLoad
+* view(Will/Did)(Appear/Disappear) called each time the controller's view goes on/off screen
+* view(Will/Did)LayoutSubviews called anytime after viewDidLoad
+* didReceiveMemoryWarning if memory gets low
+
 [Previous Note](../Lecture%209%20-%20View%20Controller%20Lifecycle%20and%20Scroll%20Views/Part%200%20-%20Intro.md) | [Back To Contents](https://github.com/Firanus/stanford-iOS-lecture-notes) |  [Next Note](../Lecture%209%20-%20View%20Controller%20Lifecycle%20and%20Scroll%20Views/Part%202%20-%20UIScrollView.md)
