@@ -7,9 +7,8 @@ Topics introduced during the demo:
 * implementing the `CustomStringConvertible` protocol to make your classes `print` more readably.
 
 * Drawing using `draw(_ rect:CGRect)`
-  * Using Core Graphics
-  * Using UIBezierPath
-  * Changing the View Content Mode to 'redraw' to handle changing bounds.
+  * Using Core Graphics or Using UIBezierPath
+  * Changing the View Content Mode to 'redraw' to handle changing bounds and orientations.
   * Introducing clipping to views
   * Removing the `Opaque` setting on views for transparency
 * Drawing using subviews
@@ -17,9 +16,9 @@ Topics introduced during the demo:
   * Fonts (`UIFont.preferredFont(forTextStyle:String)`) and centering (`NSMutableParagraphStyle.alignment`) in NSAttributedStrings
   * Introducing UIFontMetrics to scale fonts of custom sizes for accessibility purposes
   * Translating and Rotating subviews
-* Using property observers in custom views to trigger redraws (call `setNeedsDisplay()`) and the laying out of subviews (call `setNeedsLayout()`)
-* Overriding `traitCollectionDidChange(_ previousTraitCollection) to also layout subviews and scale text.
-* Creating private structs to hold view-related magic numbers
+* Using property observers (didSet) in custom views to trigger redraws (call `setNeedsDisplay()`) and the laying out of subviews (call `setNeedsLayout()`)
+* Overriding `traitCollectionDidChange(_ previousTraitCollection) to also redraw, layout subviews and scale text.
+* Create private structs with static lets to define constants to be used in the class.
 * Using the size inspector to edit constraints.
 * Fixing the aspect ratio of cards using constraints
 * Ordering constraints.
