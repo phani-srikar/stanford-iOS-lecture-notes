@@ -90,4 +90,23 @@ if let url = URL(string: "http://cam.ac.uk/...") {
 }
 ```
 
+Another Example where an image is fetched and set in imageView:
+```Swift
+private func fetchImage() {
+    if let url = imageURL {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in 
+            let urlContents = try? Data(contentsOf: url)
+            DispatchQueue.main.async {
+                if let imageData = urlContents, url == self?.imageURL {
+                    self?.image = UIImage(data: imageData)
+                }
+            }
+    }
+}
+```
+Few important things to note in above code: 
+```[weak self]``` is useful in case the viewController is not present anymore as user clicked something else. In this case, we dont want that viewController to be lying around in the heap because our async operation has pointer to it (self). 
+```try?``` means that if the method throws exception then return nil.
+```url == self?.imageURL``` is useful in case the user requested for a new image and the old image comes back after finishing it's async fetch. So we need to check if we are setting UIImage to current image being requested by user.
+
 [Previous Note](../Lecture%2010%20-%20Multithreading%20and%20Autolayout/Part%200%20-%20Intro.md) | [Back To Contents](https://github.com/Firanus/stanford-iOS-lecture-notes) |  [Next Note](../Lecture%2010%20-%20Multithreading%20and%20Autolayout/Part%202%20-%20Autolayout.md)
