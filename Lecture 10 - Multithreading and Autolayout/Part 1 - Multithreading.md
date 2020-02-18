@@ -53,21 +53,24 @@ Once you've selected a queue, you put a closure onto it by using either of the f
 * `queue.async { ... }` - which adds your closure to the target queue and continues running on the current queue
 * `queue.sync { ... }` - which blocks the current queue until the closure finishes on your selected queue.
 
-We almost always choose `async`. Never do `sync` on the main queue, as you'd block it.
+We almost always choose `async`. **Never do `sync` on the main queue**, as you'd block it.
 
 ### Other queues, topics and APIs
 
 You might, rarely, need a queue other than main or global. Dispatch queue allows the creation of queues by the user.
+```Swift
+let serialQueue = DispatchQueue(label: "MySerialQ")
+let concurrentQueue = DispatchQueue(label: "MyConcurrentQ", attributes: .concurrent)
+```
 
 There is also a lot more to Grand Central Dispatch, including locking, protecting critical sessions, readers and writers and synchronous dispatch. The documentation has more information.
 
-There is also a second API with classes `Operation` and `OperationQueue` which can be used. They're useful for more complicated multithreading when you have dependencies between closures. However, we use it quite rarely.
+There is also another API with classes `Operation` and `OperationQueue` which can be used. They're useful for more complicated multithreading when you have dependencies between closures like one has to run after other etc. However, we use it quite rarely.
 
 ## Multithreaded iOS APIs
 
 Various APIs in iOS work off the main thread, and take blocks as arguments to execute them off the main thread.
-
-Remember that if you want to do UI work, you **have to dispatch back to the mai queue**
+Remember that if you want to do UI work, you **have to dispatch back to the main queue**
 
 ## Example
 
@@ -77,9 +80,10 @@ For example, to fetch the contents of a URL:
 let session = URLSession(configuration: .default)
 if let url = URL(string: "http://cam.ac.uk/...") {
     let task = session.dataTask(with: url) { (data: Data?, response, error) in
-        //you can't do UI work at this level as we're off the main queue
+        // do something with data
+        // we can't do UI work at this level as we're off the main queue
         DispatchQueue.main.async {
-            //UI work goes here instead
+            // UI work goes here instead
         }
     }
     task.resume()
