@@ -31,11 +31,11 @@ The complete lifecycle is:
 
 ## Lifecycle Methods - Appearing and Disappearing
 
-As previously mentioned, we can override a variety of method to execute our own code at specific points in the lifecycle. The methods we need to override are:
+As previously mentioned, we can override a variety of method to execute our own code at specific points in the lifecycle. Always call the methods on super first. The methods we need to override are:
 
 #### `viewDidLoad`
 
-This function gets called after the outlets have been set (i.e. after step 3 above). It is an excellent place to update your view using your model.
+This function gets called after the outlets have been set (i.e. after step 3 above). It is an excellent place to update your view using your model. Don't do geometry-related setup here as the bounds are not set yet!
 
 ```Swift
 override func viewDidLoad() {
@@ -65,7 +65,7 @@ This one calls immediately *after* the view appeared on screen.
 
 This is a good place to do things like start animations, timers, and observing external items. 
 
-You can also kick off a very expensive task here (say, a network fetch), to avoid making it block the view appearing. You typically also want to ensure such tasks happen in the background, which we'll look at in the next lecture.
+You can also kick off a very expensive task here (say, a network fetch), to avoid making it block the view appearing. You typically also want to ensure such tasks happen in the background (not main thread), which we'll look at in the next lecture.
 
 These points highlight an important UX principal: **you should never block the user interface experience**. If nothing happens when they try to interact with your app, they will stop using it.
 
@@ -109,7 +109,7 @@ As previously mentioned, you can't do geometry in `viewDidLoad`, as the bounds h
 
 These methods get called just before and just after your view has been set. I.e. just before and after it receives layoutSubviews.
 
-Usually you don't have to do anything in here because of autolayout. Be aware that this method can be called quite frequently, so you need to ensure that whatever is calling it does so in an efficient fashion.
+Usually you don't have to implement these because of autolayout. Be aware that this method can be called quite frequently, so you need to ensure that whatever is calling it does so in an efficient fashion.
 
 ## Lifecycle Methods - Autorotation
 
