@@ -54,7 +54,7 @@ The dataSource of TableViews and Collection Views have many methods (12+), but t
 * `func collectionView(_ cv: UICV, numberOfItemsInSection section: Int) -> Int` - CollectionViews don't have rows, so you specify the number of items in a section instead.
 * `func collectionView(_ cv: UICV, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell` - The same as for tableViews, but of course, returning a UICollectionViewCell instead,
 
-In both of of the 3rd methods, you will notice a parameter of type `IndexPath`. This struct just defines a way of specifying which item we're talking about.
+In both of of the 3rd methods, you will notice a parameter of type `IndexPath`. This struct just defines a way of specifying which item we're talking about by referencing it by both row and section.
 
 ### Defining a UITableViewCell
 
@@ -169,7 +169,10 @@ For CollectionViews, you have the same 3 options (with minor differences), but a
 
 For tables setting headers is just a matter of implementing the `func tableView(_ tv: UITV, titleForHeaderInSection section: Int) -> String?`  method, though if you want a custom view, that option is also available to you.
 
-For collections, unfortunately you have to setup a custom view. This ends up being very similar to setting up a custom view item, and so we won't cover it in depth here.
+For collections, unfortunately you have to setup a custom view. We have to turn them ON in the storyboard. They need to have a UICollectionReusableView subclass. You put a UILabel or whatever for your header, then hook up an outlet. Then you implement the following dataSource method to dequeue and provide a header.
+```Swift
+func collectionView(_ collectionView:UICollectionView, viewForSupplementaryElememtOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
+```
 
 There's tons of other stuff as well. See the documentation :).
 
