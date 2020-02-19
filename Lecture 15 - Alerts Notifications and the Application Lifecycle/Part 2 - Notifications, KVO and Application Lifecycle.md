@@ -51,5 +51,32 @@ NSObject is the root class of all iOS classes (e.g. ViewController etc.). If you
 
 Usually we use KVOs in Controllers to observe either its model or its view.
 
+## Application LifeCycle
+
+The following stages exist in an Application LifeCycle:
+* Not running
+* Foreground inactive - no UIEvents
+* Foreground active - getting UIEvents, segueing, normal running state of app
+* background - code is running, no UI EVents, transitory state (~30secs) so anything you do here should be fast.
+* suspended - code is not running and the app could be killed at any time.
+
+Launching goes from not running to foreground inactive to active. Switching to another app goes to foreground inactive then background and then suspended, from where you can get reactivated or killed. Killing means back to not running from suspended. 
+
+These transitions can be subscribed to with closures implemented to handle them. 
+* Your AppDelegate will receive ```func application(UIApplication, will/didFinishLaunchingWithOptions: [UIApplicationLaunchOptionsKey: Any]? = nil)``` and you can observe `UIApplicationDidFinishLaunching` when the app goes from not running to foreground inactive. The `UIApplicationLaunchOptionsKey` dictionary has several keys with info of why did the app launch etc.
+* Your AppDelegate will receive ```func applicationWillResignActive(UIApplication)``` and you observe `UIApplicationWillResignActive` when app goes from foreground active to inactive. You will want to pause your UI here. Might happen when you get a phone call or when you're on your way to background.
+* Your AppDelegate will receive ```func applicationDidBecomeActive(UIApplication)``` and you observe `UIApplicationDidBecomeActive` when app goes from foreground inactive to active. You will want to un-pause your UI here. 
+* Your AppDelegate will receive ```func applicationDidEnterBackground(UIApplication)``` and you observe `UIApplicationDidEnterBackground` when app goes from foreground inactive to background. You will want to quickly batten down the hatches like closing any open files, saving data etc and prepare for being killed if it happens.
+* Your AppDelegate will receive ```func applicationWillEnterForeground(UIApplication)``` and you observe `UIApplicationWillEnterForeground` when app goes from background to foregound inactive. You will want to unbatten the hatches. Most of the times you dont have to do anything here.
+
+
+Other things you can do in AppDelegate:
+* State Restoration - saving the state of your UI so you can restore it even if you're killed.
+* Data Protection - files can be set to be protected when a users' devices' screen is locked.
+* open URL - in Xcode's Info tab or project settings, you can register for certain URLs.
+* Background Fetching - You can fetch and receive results while in the background. 
+
+
+Never subclass UIApplication. use AppDelegate instead. 
 
 [Previous Note](../Lecture%2015%20-%20Alerts%20Notifications%20and%20the%20Application%20Lifecycle/Part%201%20-%20Alerts%20and%20Action%20Sheets.md) | [Back To Contents](https://github.com/Firanus/stanford-iOS-lecture-notes)
