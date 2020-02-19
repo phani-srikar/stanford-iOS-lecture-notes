@@ -65,6 +65,6 @@ func write(to url: URL, options: Data.WritingOptions) throws -> Bool
 
 ## FileManager
 
-FileManager is a very versatile class that lets you do a wide variety of file operations. It also has a delegate that lets you, amongst other things, restrict functionality with lots of `should...` methods. Finally, it is also thread-safe, as long as a given instance is used in only one thread. See [the documentation](https://developer.apple.com/documentation/foundation/filemanager) for more info.
+FileManager is a very versatile class that lets you do a wide variety of file operations. It also has a delegate that lets you, amongst other things, restrict functionality with lots of `should...` methods like `should I allow opening this file` etc. Finally, it is also thread-safe, as long as a given instance is used in only one thread. See [the documentation](https://developer.apple.com/documentation/foundation/filemanager) for more info.
 
 [Previous Note](../Lecture%2013%20-%20Persistance/Part%202%20-%20Archiving.md) | [Back To Contents](https://github.com/Firanus/stanford-iOS-lecture-notes) |  [Next Note](../Lecture%2013%20-%20Persistance/Part%204%20-%20Core%20Data.md)
