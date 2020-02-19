@@ -95,7 +95,7 @@ You tell your document that something has changed by calling:
 ```Swift
 myDocument.updateChangeCount(.done)
 ```
-or you can use UIDocument's `undoManager`, which we do not have time to cover atm ([see the documentation](https://developer.apple.com/documentation/uikit/uidocument/1619953-undomanager). UIDocument will save your changes at the next available opportunity.
+you can use UIDocument's `undoManager` which takes care of undo/redo operations. We do not have time to cover atm ([see the documentation](https://developer.apple.com/documentation/uikit/uidocument/1619953-undomanager). UIDocument will save your changes at the next available opportunity.
 
 You can also force a save using the method:
 ```Swift
